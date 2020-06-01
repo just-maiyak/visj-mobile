@@ -45,12 +45,15 @@ class HomePageState extends State<HomePage>
       appBar: new AppBar(
         title: new Text('VISJ'),
       ),
-      body: new TabBarView(controller: controller, children: <Widget>[
-        new estimation_view.Estimator(),
-        new map_view.HeatMap(),
-        new graphics_view.Dashboard(),
-        new list_view.Biens(),
-      ]),
+      body: new TabBarView(
+          controller: controller,
+          physics: NeverScrollableScrollPhysics(),
+          children: <Widget>[
+            new estimation_view.Estimator(),
+            new map_view.HeatMap(),
+            new graphics_view.Dashboard(),
+            new list_view.Biens(),
+          ]),
       bottomNavigationBar: new Material(
         color: Colors.purple[300],
         child: new TabBar(
