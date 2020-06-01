@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
+import 'package:visj/list_view.dart' as list_view;
+import 'package:visj/map_view.dart' as map_view;
+import 'package:visj/graphics_view.dart' as graphics_view;
+import 'package:visj/estimation_view.dart' as estimation_view;
 
 void main() => runApp(MyApp());
 
@@ -7,98 +10,57 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'VISJ Mobile',
       theme: ThemeData(
-        primaryColor: Colors.green,
-      
+        primaryColor: Colors.purple[300],
+        accentColor: Colors.indigoAccent,
       ),
-      home: RandomWords(),
-    );
-  }
-}
-class RandomWordsState extends State<RandomWords>{
-  final _suggestions = <WordPair>[];
-  final Set<WordPair> _saved = Set<WordPair>();
-  final _biggerFont = const TextStyle(fontSize: 18.0);
-  Widget _buildSuggestions() {
-    return ListView.builder(
-        padding: const EdgeInsets.all(16.0),
-        itemBuilder: (context, i) {
-          if (i.isOdd) return Divider();
-          final index = i ~/ 2;
-          if (index >= _suggestions.length) {
-            _suggestions.addAll(generateWordPairs().take(10));
-          }
-          return _buildRow(_suggestions[index]);
-        });
-  }
-  Widget _buildRow(WordPair pair) {
-    final bool alreadySaved = _saved.contains(pair);
-    return ListTile(
-      title: Text(
-        pair.asPascalCase,
-        style: _biggerFont,
-      ),
-      trailing: Icon(
-        alreadySaved ? Icons.favorite : Icons.favorite_border,
-        color: alreadySaved ? Colors.pinkAccent : null,
-      ),
-      onTap: () {
-        setState(() {
-          if (alreadySaved) {
-            _saved.remove(pair);
-          } else {
-            _saved.add(pair);
-          }
-        });
-      },
-    );
-  }
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('VISJ - Mobile'),
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.list), onPressed: _pushSaved),
-        ],
-      ),
-      body: _buildSuggestions(),
-    );
-  }
-  void _pushSaved() {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (BuildContext context) {
-          final Iterable<ListTile> tiles = _saved.map(
-                (WordPair pair) {
-              return ListTile(
-                title: Text(
-                  pair.asPascalCase,
-                  style: _biggerFont,
-                ),
-              );
-            },
-          );
-          final List<Widget> divided = ListTile
-              .divideTiles(
-            context: context,
-            tiles: tiles,
-          )
-              .toList();
-          return Scaffold(
-            appBar: AppBar(
-              title: Text('Saved Suggestions'),
-            ),
-            body: ListView(children: divided),
-          );
-        },
-      ),
+      home: new HomePage(),
     );
   }
 }
 
-class RandomWords extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
-  RandomWordsState createState() => RandomWordsState();
+  State createState() => HomePageState();
+}
+
+class HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
+  TabController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = new TabController(length: 4, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => new Scaffold(
+      appBar: new AppBar(
+        title: new Text('VISJ'),
+      ),
+      body: new TabBarView(controller: controller, children: <Widget>[
+        new estimation_view.Estimator(),
+        new map_view.HeatMap(),
+        new graphics_view.Dashboard(),
+        new list_view.Biens(),
+      ]),
+      bottomNavigationBar: new Material(
+        color: Colors.purple[300],
+        child: new TabBar(
+          controller: controller,
+          tabs: <Tab>[
+            new Tab(icon: new Icon(Icons.euro_symbol)),
+            new Tab(icon: new Icon(Icons.map)),
+            new Tab(icon: new Icon(Icons.view_quilt)),
+            new Tab(icon: new Icon(Icons.list)),
+          ],
+        ),
+      ));
 }
