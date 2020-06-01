@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:visj/list_view.dart' as list_view;
+import 'package:visj/map_view.dart' as map_view;
+import 'package:visj/graphics_view.dart' as graphics_view;
+import 'package:visj/estimation_view.dart' as estimation_view;
 
 void main() => runApp(MyApp());
 
@@ -28,7 +31,7 @@ class HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
-    controller = new TabController(length: 2, vsync: this);
+    controller = new TabController(length: 4, vsync: this);
   }
 
   @override
@@ -43,20 +46,20 @@ class HomePageState extends State<HomePage>
         title: new Text('VISJ'),
       ),
       body: new TabBarView(controller: controller, children: <Widget>[
+        new estimation_view.Estimator(),
+        new map_view.HeatMap(),
+        new graphics_view.Dashboard(),
         new list_view.Biens(),
-        new Container(
-          child: new Center(
-            child: new Text('placeholder'),
-          ),
-        )
       ]),
       bottomNavigationBar: new Material(
         color: Colors.purple[300],
         child: new TabBar(
           controller: controller,
           tabs: <Tab>[
-            new Tab(icon: new Icon(Icons.list)),
+            new Tab(icon: new Icon(Icons.euro_symbol)),
             new Tab(icon: new Icon(Icons.map)),
+            new Tab(icon: new Icon(Icons.view_quilt)),
+            new Tab(icon: new Icon(Icons.list)),
           ],
         ),
       ));

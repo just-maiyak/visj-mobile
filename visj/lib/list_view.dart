@@ -13,7 +13,7 @@ class BiensState extends State<Biens> {
   @override
   Widget build(BuildContext context) => new Container(
     child: new Center(
-        child: new Icon(Icons.format_list_bulleted),
+        child: new Icon(Icons.format_list_bulleted, size: 100.0,),
       )
   );
 }
