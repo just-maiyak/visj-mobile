@@ -4,7 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class HeatMap extends StatefulWidget{
   @override
-  MapState createState() => new MapState();
+  MapState createState() => MapState();
   
 }
 
@@ -17,7 +17,7 @@ class MapState extends State<HeatMap> {
   );
 
   @override
-  Widget build(BuildContext context) => new Scaffold(
+  Widget build(BuildContext context) => Scaffold(
     body: GoogleMap(
       mapType: MapType.normal,
       initialCameraPosition: _kParis,

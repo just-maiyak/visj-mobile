@@ -5,15 +5,15 @@ import 'package:flutter/material.dart';
 
 class Biens extends StatefulWidget{
   @override
-  BiensState createState() => new BiensState();
+  BiensState createState() => BiensState();
   
 }
 
 class BiensState extends State<Biens> {
   @override
-  Widget build(BuildContext context) => new Container(
-    child: new Center(
-        child: new Icon(Icons.format_list_bulleted, size: 100.0,),
+  Widget build(BuildContext context) => Container(
+    child: Center(
+        child: Icon(Icons.format_list_bulleted, size: 100.0,),
       )
   );
 }

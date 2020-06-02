@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.purple[300],
         accentColor: Colors.indigoAccent,
       ),
-      home: new HomePage(),
+      home: HomePage(),
     );
   }
 }
@@ -31,7 +31,7 @@ class HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
-    controller = new TabController(length: 4, vsync: this);
+    controller = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -41,28 +41,28 @@ class HomePageState extends State<HomePage>
   }
 
   @override
-  Widget build(BuildContext context) => new Scaffold(
-      appBar: new AppBar(
-        title: new Text('VISJ'),
+  Widget build(BuildContext context) => Scaffold(
+      appBar: AppBar(
+        title: Text('VISJ'),
       ),
-      body: new TabBarView(
+      body: TabBarView(
           controller: controller,
           physics: NeverScrollableScrollPhysics(),
           children: <Widget>[
-            new estimation_view.Estimator(),
-            new map_view.HeatMap(),
-            new graphics_view.Dashboard(),
-            new list_view.Biens(),
+            estimation_view.Estimator(),
+            map_view.HeatMap(),
+            graphics_view.Dashboard(),
+            list_view.Biens(),
           ]),
-      bottomNavigationBar: new Material(
+      bottomNavigationBar: Material(
         color: Colors.purple[300],
-        child: new TabBar(
+        child: TabBar(
           controller: controller,
           tabs: <Tab>[
-            new Tab(icon: new Icon(Icons.euro_symbol)),
-            new Tab(icon: new Icon(Icons.map)),
-            new Tab(icon: new Icon(Icons.view_quilt)),
-            new Tab(icon: new Icon(Icons.list)),
+            Tab(icon: Icon(Icons.euro_symbol)),
+            Tab(icon: Icon(Icons.map)),
+            Tab(icon: Icon(Icons.view_quilt)),
+            Tab(icon: Icon(Icons.list)),
           ],
         ),
       ));
