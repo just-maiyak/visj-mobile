@@ -7,7 +7,9 @@ class FormForEstimation extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => new _formState();
 }
-
+/*
+La classe contenant toutes les données qu'on veut envoyer au modèle
+ */
 class _FormData {
   String natureMutation ='';
   int codeTypeLocal = 0;
@@ -24,6 +26,9 @@ class _FormData {
 class _formState extends State<FormForEstimation> {
   final GlobalKey<FormState> _formkey = new GlobalKey<FormState>();
   _FormData _data = new _FormData();
+  /*
+  Le formulaire en lui-même
+   */
   @override
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
@@ -124,7 +129,10 @@ class _formState extends State<FormForEstimation> {
     );
 
   }
-
+/*
+Fonction de sauvegarde des données du formulaire dès que l'utilisateur presse le bouton et que tout est correct
+Doit appeler l'autre page en y amenant les données de data
+ */
   void submit(){ //TODO Doit servir à mettre _data sur la'autre page pour appeler l'API
     if(this._formkey.currentState.validate()){
       _formkey.currentState.save();
@@ -135,7 +143,9 @@ class _formState extends State<FormForEstimation> {
     }
   }
 
-
+/*
+Toutes les fonctions de validations du formulaire
+ */
 
   String _validateSurface(String value){
     if(double.tryParse(value) == null || double.parse(value) < 0.0){
@@ -159,6 +169,9 @@ class _formState extends State<FormForEstimation> {
   }
 
   String _validate_nombrelots(String value){
+    if(int.tryParse(value) == null){
+      return "Merci de saisir un chiffre > 0";
+    }
     int valueInt = int.parse(value);
     if (valueInt < 1){
       return "Merci de saisir un chiffre > 0";
@@ -173,6 +186,10 @@ class _formState extends State<FormForEstimation> {
     return null;
   }
 
+  /*
+  Exploitation de l'API du GOUV
+  Param : adresse l'adresse dont on veut trouver des données géo, de la forme 1+rue+de+paris+78000
+   */
   Future<AdressData> apiGouv(String adresse) async {
     String link = 'https://api-adresse.data.gouv.fr/search/?q='+adresse;
     List<Properties> listProperties;
@@ -198,8 +215,8 @@ class _formState extends State<FormForEstimation> {
       }
       int codePostal = int.parse(codePostalStr);
       String codeCommuneStr = listProperties[0].citycode;
-      String codeDepartementStr = codeCommuneStr.substring(0,2); // Le code Dep dans nos données découle du code commune, sans 0 devant. Donc pour le dep 01 => 1
-      codeCommuneStr = codeCommuneStr.substring(2,5);
+      String codeDepartementStr = codeCommuneStr.substring(0,2); // Le code Dep dans nos données découle du code commune, sans 0 devant. Donc pour le dep 01 => 1, pour le dep 78 on garde 78
+      codeCommuneStr = codeCommuneStr.substring(2,5); // Le code commune de nos données sont les 3 derniers caractères du code Communes donné par l'API, sans aucun 0 devant. 001 deviendra 1, 010 => 01
       if (codeDepartementStr.startsWith("0")){ //On enlève le 0 éventuel devant
         codeDepartementStr = codeDepartementStr.substring(1);
       }
