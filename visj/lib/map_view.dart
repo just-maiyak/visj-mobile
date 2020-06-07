@@ -91,12 +91,13 @@ class MapState extends State<HeatMap> {
       var vF = data[i][0];
       var la = data[i][1];
       var lo = data[i][2];
-      if (vF != "null" && la != "null" && lo != "null"){
-        Point p = new Point(lat: double.parse(la), long: double.parse(lo), valeurFonciere: double.parse(vF));
+      if (/**vF != null && la != null && lo != null **/ 1==1){
+        Point p = new Point(lat:la, long: lo, valeurFonciere:vF);
         pointList.add(p);
       }
 
     }
+    print(pointList.first.lat);
     return pointList;
   }
 
