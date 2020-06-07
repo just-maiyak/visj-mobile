@@ -58,8 +58,9 @@ class MapState extends State<HeatMap> {
     final List<WeightedLatLng> points = <WeightedLatLng>[];
     getDataFromServ();
     //Can create multiple points here
-    //points.add(_createWeightedLatLng(location.latitude,location.longitude, 1));
-    //points.add(_createWeightedLatLng(location.latitude-1,location.longitude, 1));
+    points.add(_createWeightedLatLng(location.latitude,location.longitude, 1));
+    points.add(_createWeightedLatLng(location.latitude-1,location.longitude, 1));
+    print(listePoints.length);
     for(int i = 0; i < listePoints.length; i++){
       double vF = listePoints[i].valeurFonciere;
       double la = listePoints[i].lat;
@@ -80,7 +81,7 @@ class MapState extends State<HeatMap> {
     if (res.statusCode == 200)
       List data = json.decode(res.body);
        **/
-    var jSonTest = "[[7570.0,46.46328,5.04917],[583000.0,46.190458,5.20959],[583000.0,46.190458,5.20959],[135000.0,46.227254,4.863671],[52500.0,46.293795,5.093829],[8350.0,46.121478,5.345978],[156000.0,46.05386,5.347315],[100000.0,46.289407,5.196303],[173800.0,46.205123,5.230416],[4000.0,46.218103,5.361058]]";
+    var jSonTest = "[[7570.0,46.46328,5.04917],[583000.0,46.190458,5.20959],[583000.0,46.190458,5.20959],[135000.0,46.227254,4.863671],[52500.0,46.293795,5.093829],[8350.0,46.121478,5.345978], [null, null, null]]";
     List data = json.decode(jSonTest);
     List pointList = new List();
     print("Taille data");
@@ -92,10 +93,12 @@ class MapState extends State<HeatMap> {
       var vF = data[i][0];
       var la = data[i][1];
       var lo = data[i][2];
-      if (/**vF != null && la != null && lo != null **/ 1==1){
-        Point p = new Point(lat:la, long: lo, valeurFonciere:vF);
+      if (vF != null && la != null && lo != null){
+        Point p = new Point(lat:(la), long: (lo), valeurFonciere :vF);
         pointList.add(p);
       }
+      print("Ok pour: ");
+      print(i);
 
     }
     print(pointList.first.lat);
