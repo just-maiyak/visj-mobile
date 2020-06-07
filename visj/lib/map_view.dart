@@ -33,7 +33,7 @@ class MapState extends State<HeatMap> {
       },
     ),
     floatingActionButton: FloatingActionButton.extended(
-        onPressed: getDataFromServ,
+        onPressed: _addHeatmap,
         label: Text('Add Heatmap'),
         icon: Icon(Icons.add_box),
   ),
@@ -63,7 +63,7 @@ class MapState extends State<HeatMap> {
       double vF = listePoints[i].valeurFonciere;
       double la = listePoints[i].lat;
       double lo = listePoints[i].long;
-      points.add(_createWeightedLatLng(la, lo, vF.toInt()));
+      points.add(_createWeightedLatLng(la, lo, 1));
     }
     return points;
   }
@@ -72,7 +72,7 @@ class MapState extends State<HeatMap> {
     return WeightedLatLng(point: LatLng(lat, lng), intensity: weight);
   }
 
-  Future<List<Point>> dataFromServ() async {
+  Future<List> dataFromServ() async {
    /**String link = 'http://0.0.0.0:5000/data_heatmap';
     var res = await http.get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
     var data;
@@ -84,7 +84,10 @@ class MapState extends State<HeatMap> {
     List pointList = new List();
     print("Taille data");
     print(data.length);
-    for (int i = 0; i < 0; i++){
+    print(data[0][0]);
+    print(data[0][1]);
+    print(data[0][2]);
+    for (int i = 0; i < data.length; i++){
       var vF = data[i][0];
       var la = data[i][1];
       var lo = data[i][2];
