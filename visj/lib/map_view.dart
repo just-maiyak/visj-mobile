@@ -75,33 +75,32 @@ class MapState extends State<HeatMap> {
   }
 
   Future<List> dataFromServ() async {
-   /**String link = 'http://0.0.0.0:5000/data_heatmap';
+   String link = 'http://10.0.2.2:5000/data_heatmap';
     var res = await http.get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
     var data;
-    if (res.statusCode == 200)
+   List pointList = new List();
+    if (res.statusCode == 200) {
       List data = json.decode(res.body);
-       **/
-    var jSonTest = "[[7570.0,46.46328,5.04917],[583000.0,46.190458,5.20959],[583000.0,46.190458,5.20959],[135000.0,46.227254,4.863671],[52500.0,46.293795,5.093829],[8350.0,46.121478,5.345978], [null, null, null]]";
-    List data = json.decode(jSonTest);
-    List pointList = new List();
-    print("Taille data");
-    print(data.length);
-    print(data[0][0]);
-    print(data[0][1]);
-    print(data[0][2]);
-    for (int i = 0; i < data.length; i++){
-      var vF = data[i][0];
-      var la = data[i][1];
-      var lo = data[i][2];
-      if (vF != null && la != null && lo != null){
-        Point p = new Point(lat:(la), long: (lo), valeurFonciere :vF);
-        pointList.add(p);
+      //var jSonTest = "[[7570.0,46.46328,5.04917],[583000.0,46.190458,5.20959],[583000.0,46.190458,5.20959],[135000.0,46.227254,4.863671],[52500.0,46.293795,5.093829],[8350.0,46.121478,5.345978], [null, null, null]]";
+      //List data = json.decode(jSonTest);
+      print("Taille data");
+      print(data.length);
+      print(data[0][0]);
+      print(data[0][1]);
+      print(data[0][2]);
+      for (int i = 0; i < data.length; i++) {
+        var vF = data[i][0];
+        var la = data[i][1];
+        var lo = data[i][2];
+        if (vF != null && la != null && lo != null) {
+          Point p = new Point(lat: (la), long: (lo), valeurFonciere: vF);
+          pointList.add(p);
+        }
+        print("Ok pour: ");
+        print(i);
       }
-      print("Ok pour: ");
-      print(i);
-
+      print(pointList.first.lat);
     }
-    print(pointList.first.lat);
     return pointList;
   }
 
