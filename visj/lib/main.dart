@@ -3,7 +3,7 @@ import 'package:visj/list_view.dart' as list_view;
 import 'package:visj/map_view.dart' as map_view;
 import 'package:visj/graphics_view.dart' as graphics_view;
 import 'package:visj/estimation_view.dart' as estimation_view;
-import 'package:visj/formForEstimation.dart' as form_view;
+import 'package:visj/estimation_form.dart' as  form_view;
 
 void main() => runApp(MyApp());
 
