@@ -1,0 +1,58 @@
+import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:flutter/material.dart';
+
+class SimpleLineChartPrix extends StatelessWidget {
+  final List<charts.Series> seriesList;
+  final bool animate;
+
+  SimpleLineChartPrix(this.seriesList, {this.animate});
+
+  factory SimpleLineChartPrix.withSampleData() {
+    return new SimpleLineChartPrix(
+      _createSampleData(),
+      // Disable animations for image tests.
+      animate: false,
+    );
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return new charts.LineChart(seriesList, animate: animate);
+  }
+
+  /// Create one series with sample hard coded data.
+  static List<charts.Series<AvgPrice, int>> _createSampleData() {
+    List<AvgPrice> data = new List<AvgPrice>();
+    var dataTab = [[402012.5275819672],[164949.213517588],[252733.6369148936],[113906.1135416667],[106123.1217391304],[552227.8163346614],[129259.3413397129],[128609.0800793651],[107436.5639751553],[311302.1201734104],[175013.6434693878],[136859.0568888889],[2175199.9461948532],[354328.0590756302],[114849.6857142857],[177297.3369777778],[207538.8656741573],[3102036.014663212],[83555.1104651163],[524409.4901639344],[2625855.3072081222],[302437.496625],[238797.2516715542],[166687.8474576271],[152856.8419354839],[791902.7916666666],[647382.2189430895],[367889.6430303031],[254663.5],[520000.0],[2351613.5248791212],[383928.9951859956],[188798.4608421053],[595448.2797861507],[1764617.4862121213],[226107.2089591836],[106736.3977419355],[192791.8664163823],[437815.2052879581],[138476.396875],[233936.4226136364],[214923.9271193416],[562787.7167631579],[100013.316173913],[1137779.4126270269],[500779.0624576271],[123752.5538738739],[324785.3869456067],[76920.2486419753],[239327.8819914347],[139100.7139482201],[182059.0070238095],[77382.2863855422],[146724.2483796296],[128280.3822175732],[97554.5295454546],[173995.8201459854],[160516.6068786127],[338102.1236563307],[283425.6991212121],[113047.6338028169],[170636.5708446866],[122951.8079061372],[279188.4725274725],[131523.3166666667],[164937.1029545454],[1007149.7374125875],[67622.0071511628],[150397.7025862069],[617589.7471906354],[159294.992],[373774.5114285715],[3210366.4828448277],[2719847.1651029754],[1170008.3263314448],[2169791.9636842106],[103275.4414492754],[264309.0639285714],[174808.3901273885],[153294.7856329114],[733517.728668942],[200574.6616666667],[160887.1831712473],[157580.8246946565],[109961.8519064748],[101668.1731768953],[129545.1104705882],[132172.3076923077],[4314917.7484110175],[2311945.2830401533],[2344921.9487445885],[3036853.4326096489],[1605824.0396586347],[1422362.636153846],[328396.0083333334],[2713335.3586206897],[390427.1142857143]];
+    //Données données par http://0.0.0.0:5000/data_graphique_avg_price_dep
+    for(int i = 0; i < dataTab.length; i++){
+      data.add(AvgPrice(i+1, dataTab[i][0]));
+    }
+
+
+    return [
+      new charts.Series<AvgPrice, int>(
+        id: 'Prix moyen par dept',
+        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+        domainFn: (AvgPrice sales, _) => sales.dept,
+        measureFn: (AvgPrice sales, _) => sales.avgPrice,
+        data: data,
+      )
+    ];
+  }
+
+}
+
+
+class AvgPrice{
+  final int dept;
+  final double avgPrice;
+  AvgPrice(this.dept, this.avgPrice);
+}
+
+class AvgSurface{
+  final int dept;
+  final double avgSurface;
+  AvgSurface(this.dept, this.avgSurface);
+}
