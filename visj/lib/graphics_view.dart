@@ -11,12 +11,25 @@ class DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-
-             return Container(
+             /*return Container(
                 width: 200.0,
                 height: 200.0,
                 child: cL.SimpleLineChartPrix.withSampleData()
-              );
+              ); */
+             return ListView(
+               children: <Widget>[
+                 Container(
+                   width: 200,
+                   height: 200,
+                   child: cL.SimpleLineChartPrix.withSampleData()
+                 ),
+                 Container(
+                     width: 200,
+                     height: 200,
+                     child: cL.SimpleLineChartSurface.withSampleData()
+                 )
+               ],
+             );
   }
 }
 
