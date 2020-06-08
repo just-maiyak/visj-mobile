@@ -35,6 +35,9 @@ class _FormState extends State<FormForEstimation> {
     final Size screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Estimation')
+      ),
         body: Container(
       padding: EdgeInsets.all(20.0),
       child: Center(
@@ -161,6 +164,7 @@ Doit appeler l'autre page en y amenant les données de data
       print('\nPrinting Data :\n');
       print("Lon: ${_data.long}");
       print("Code Postal: ${_data.codePostal}");
+      Navigator.pop(context, 310415);
     }
   }
 

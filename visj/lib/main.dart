@@ -3,10 +3,8 @@ import 'package:visj/list_view.dart' as list_view;
 import 'package:visj/map_view.dart' as map_view;
 import 'package:visj/graphics_view.dart' as graphics_view;
 import 'package:visj/estimation_view.dart' as estimation_view;
-import 'package:visj/estimation_form.dart' as  form_view;
-
+import 'package:visj/estimation_form.dart' as form_view;
 void main() => runApp(MyApp());
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -19,28 +17,23 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 class HomePage extends StatefulWidget {
   @override
   State createState() => HomePageState();
 }
-
 class HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   TabController controller;
-
   @override
   void initState() {
     super.initState();
     controller = TabController(length: 4, vsync: this);
   }
-
   @override
   void dispose() {
     controller.dispose();
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
@@ -50,7 +43,7 @@ class HomePageState extends State<HomePage>
           controller: controller,
           physics: NeverScrollableScrollPhysics(),
           children: <Widget>[
-            form_view.FormForEstimation(),
+            estimation_view.Estimator(),
             map_view.HeatMap(),
             graphics_view.Dashboard(),
             list_view.Biens(),
