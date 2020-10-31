@@ -1,0 +1,99 @@
+import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:flutter/material.dart';
+
+class SimpleLineChartPrix extends StatelessWidget {
+  final List<charts.Series> seriesList;
+  final bool animate;
+
+  SimpleLineChartPrix(this.seriesList, {this.animate});
+
+  factory SimpleLineChartPrix.withSampleData() {
+    return new SimpleLineChartPrix(
+      _createSampleData(),
+      // Disable animations for image tests.
+      animate: false,
+    );
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return new charts.LineChart(seriesList, animate: animate);
+  }
+
+  /// Create one series with sample hard coded data.
+  static List<charts.Series<AvgPrice, int>> _createSampleData() {
+    List<AvgPrice> data = new List<AvgPrice>();
+    var dataTab = [[402012.5275819672],[164949.213517588],[252733.6369148936],[113906.1135416667],[106123.1217391304],[552227.8163346614],[129259.3413397129],[128609.0800793651],[107436.5639751553],[311302.1201734104],[175013.6434693878],[136859.0568888889],[2175199.9461948532],[354328.0590756302],[114849.6857142857],[177297.3369777778],[207538.8656741573],[3102036.014663212],[83555.1104651163],[524409.4901639344],[2625855.3072081222],[302437.496625],[238797.2516715542],[166687.8474576271],[152856.8419354839],[791902.7916666666],[647382.2189430895],[367889.6430303031],[254663.5],[520000.0],[2351613.5248791212],[383928.9951859956],[188798.4608421053],[595448.2797861507],[1764617.4862121213],[226107.2089591836],[106736.3977419355],[192791.8664163823],[437815.2052879581],[138476.396875],[233936.4226136364],[214923.9271193416],[562787.7167631579],[100013.316173913],[1137779.4126270269],[500779.0624576271],[123752.5538738739],[324785.3869456067],[76920.2486419753],[239327.8819914347],[139100.7139482201],[182059.0070238095],[77382.2863855422],[146724.2483796296],[128280.3822175732],[97554.5295454546],[173995.8201459854],[160516.6068786127],[338102.1236563307],[283425.6991212121],[113047.6338028169],[170636.5708446866],[122951.8079061372],[279188.4725274725],[131523.3166666667],[164937.1029545454],[1007149.7374125875],[67622.0071511628],[150397.7025862069],[617589.7471906354],[159294.992],[373774.5114285715],[3210366.4828448277],[2719847.1651029754],[1170008.3263314448],[2169791.9636842106],[103275.4414492754],[264309.0639285714],[174808.3901273885],[153294.7856329114],[733517.728668942],[200574.6616666667],[160887.1831712473],[157580.8246946565],[109961.8519064748],[101668.1731768953],[129545.1104705882],[132172.3076923077],[4314917.7484110175],[2311945.2830401533],[2344921.9487445885],[3036853.4326096489],[1605824.0396586347],[1422362.636153846],[328396.0083333334],[2713335.3586206897],[390427.1142857143]];
+    //Données données par http://0.0.0.0:5000/data_graphique_avg_price_dep
+    for(int i = 0; i < dataTab.length; i++){
+      data.add(AvgPrice(i+1, dataTab[i][0]));
+    }
+
+
+    return [
+      new charts.Series<AvgPrice, int>(
+        id: 'Prix moyen par dept',
+        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+        domainFn: (AvgPrice sales, _) => sales.dept,
+        measureFn: (AvgPrice sales, _) => sales.avgPrice,
+        data: data,
+      )
+    ];
+  }
+
+}
+class SimpleLineChartSurface extends StatelessWidget {
+  final List<charts.Series> seriesList;
+  final bool animate;
+
+  SimpleLineChartSurface(this.seriesList, {this.animate});
+
+  factory SimpleLineChartSurface.withSampleData() {
+    return new SimpleLineChartSurface(
+      _createSampleData(),
+      // Disable animations for image tests.
+      animate: false,
+    );
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return new charts.LineChart(seriesList, animate: animate);
+  }
+
+  /// Create one series with sample hard coded data.
+  static List<charts.Series<AvgSurface, int>> _createSampleData() {
+    List<AvgSurface> data = new List<AvgSurface>();
+    var dataTab = [[2437.5102040816],[2418.2709359606],[4119.0135135135],[4166.7926829268],[2120.1666666667],[1237.5267175573],[2352.1957671958],[2186.6982758621],[1959.8344370861],[5189.5689655172],[3358.7407407407],[2672.4827586207],[1794.0886699507],[3390.25],[3489.1944444444],[3213.2441314554],[1973.8742331288],[6149.5708333333],[3224.25625],[5556.5205479452],[4283.4959349593],[3934.0774193548],[3963.9607250755],[938.7419354839],[1478.7391304348],[6332.4444444444],[6730.3924731183],[1828.6178861789],[1158.9375],[2823.606741573],[2713.9716981132],[4598.0537634409],[2171.0613138686],[1683.875],[1938.7783641161],[7640.2835820896],[3971.1106719368],[1792.875],[2645.109375],[5652.5684647303],[4137.4874371859],[2072.140077821],[2924.5339805825],[2471.6583629893],[3716.062745098],[2442.7213114754],[4762.3656387665],[5712.9736842105],[2982.54],[2776.3766666667],[3269.4392523364],[4872.0],[4093.5904255319],[1935.0053475936],[1795.6538461538],[2998.5248447205],[5755.0875912409],[1113.936026936],[2889.5186721992],[8561.0222222222],[2271.0309597523],[2590.5473684211],[2134.6666666667],[3302.6964285714],[3073.3611111111],[1992.6923076923],[2717.0245398773],[3616.8971962617],[3926.72],[573.9310344828],[904.2110091743],[1506.84],[1614.37],[1985.0598086124],[4281.0034364261],[3525.6519823789],[3154.5688888889],[2519.1459854015],[2450.5483870968],[2813.8150684932],[143.6666666667],[2612.4410377358],[3807.4780487805],[3747.2608695652],[2790.5462962963],[3555.8303030303],[905.9166666667],[5455.5441176471],[1706.191011236],[2568.1496062992],[1281.145631068],[12171.5367965368],[2343.0384615385],[3614.8666666667],[7385.5],[602.1666666667]];
+    //Données données par http://0.0.0.0:5000/data_graphique_avg_surface_dep
+    for(int i = 0; i < dataTab.length; i++){
+      data.add(AvgSurface(i+1, dataTab[i][0]));
+    }
+
+
+    return [
+      new charts.Series<AvgSurface, int>(
+        id: 'Prix moyen par dept',
+        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+        domainFn: (AvgSurface sales, _) => sales.dept,
+        measureFn: (AvgSurface sales, _) => sales.avgSurface,
+        data: data,
+      )
+    ];
+  }
+
+}
+
+class AvgPrice{
+  final int dept;
+  final double avgPrice;
+  AvgPrice(this.dept, this.avgPrice);
+}
+
+class AvgSurface{
+  final int dept;
+  final double avgSurface;
+  AvgSurface(this.dept, this.avgSurface);
+}
